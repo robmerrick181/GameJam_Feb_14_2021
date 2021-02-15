@@ -464,5 +464,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3281222690403350674, guid: 8c2580746848378498c8f99d4063fa53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281222690403350674, guid: 8c2580746848378498c8f99d4063fa53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281222690403350674, guid: 8c2580746848378498c8f99d4063fa53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3281222688376954918}
+    - target: {fileID: 3281222690403350674, guid: 8c2580746848378498c8f99d4063fa53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281222690403350674, guid: 8c2580746848378498c8f99d4063fa53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281222690403350674, guid: 8c2580746848378498c8f99d4063fa53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281222690403350674, guid: 8c2580746848378498c8f99d4063fa53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281222690403350674, guid: 8c2580746848378498c8f99d4063fa53, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c2580746848378498c8f99d4063fa53, type: 3}
+--- !u!1 &3281222688376954918 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6177567964130206179, guid: 8c2580746848378498c8f99d4063fa53, type: 3}
+  m_PrefabInstance: {fileID: 3281222688376954917}
+  m_PrefabAsset: {fileID: 0}
