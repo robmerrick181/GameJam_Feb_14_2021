@@ -5,10 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuFunctions : MonoBehaviour
 {
-    [SerializeField] string GameScene;
-    public void LoadScene()
+    public void OpenURL(string _url)
     {
-        SceneManager.LoadScene(GameScene);
+        Application.OpenURL(_url);
+    }
+    
+    public void LoadScene(string _scene)
+    {
+        SceneManager.LoadScene(_scene);
     }
 
     public void QuitGame()
