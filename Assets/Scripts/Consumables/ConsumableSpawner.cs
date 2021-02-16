@@ -72,6 +72,7 @@ public class ConsumableSpawner : MonoBehaviour
         else
             StartCoroutine(RetrySetActive(item));
     }
+
     private IEnumerator SpawnItemTimer(GameObject _obj, float _lowestSpawnTime, float _longestSpawnTime)
     {
         Vector3 spawnPos = CreateSpawnLocation();
@@ -84,6 +85,7 @@ public class ConsumableSpawner : MonoBehaviour
         else
             Debug.LogError("Unable to spawn item: Location is: " + spawnPos);
     }
+
     private IEnumerator RetrySetActive(GameObject obj)
     {
         yield return new WaitForSeconds(1f);
