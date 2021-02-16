@@ -40,6 +40,7 @@ public class ConsumableSpawner : MonoBehaviour
         if(SpawnAttempts > 5)
         {
             Debug.LogError("Unable to spawn item. Quitting loop.");
+            SpawnAttempts = 0;
             return Vector3.zero;
         }
 
