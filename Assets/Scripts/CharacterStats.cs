@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class CharacterStats: MonoBehaviour
 {
     public int StartingHealthPoints = 100;
     public int CurrentHealthPoints;
