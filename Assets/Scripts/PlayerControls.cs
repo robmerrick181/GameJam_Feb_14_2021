@@ -5,16 +5,20 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] [Range(0.0001F, 0.05F)] private float _strafingSensitivity = 0.02F;
 
     private Rigidbody _rigidBody;
+    private Animator _animator;
 
 	private void Start()
 	{
 		_rigidBody = GetComponent<Rigidbody>();
+        _animator = GetComponentInChildren<Animator>();
 	}
 
 	private void Update()
     {
         UpdateStrafing();
-        UpdateJump();
+		UpdateJump();
+        CorrectRotation();
+        UpdateSword();
     }
 
 	private void UpdateStrafing()
@@ -53,6 +57,20 @@ public class PlayerControls : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space) && Mathf.Abs(_rigidBody.velocity.y) < Mathf.Epsilon)
 		{
             _rigidBody.AddForce(6.5F * Vector3.up, ForceMode.Impulse);
+		}
+	}
+
+    private void CorrectRotation()
+	{
+        transform.rotation = Quaternion.Euler(0.0F, transform.rotation.eulerAngles.y, 0.0F);
+    }
+
+    private void UpdateSword()
+	{
+        if(Input.GetMouseButtonDown(0))
+		{
+            Debug.Log("Animating sword!");
+            _animator.SetTrigger("Swing1");
 		}
 	}
 }
