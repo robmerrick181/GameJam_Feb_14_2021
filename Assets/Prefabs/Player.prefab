@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startingHealthPoints: 100
+  _startingStrength: 10
 --- !u!1001 &8333554944059444446
 PrefabInstance:
   m_ObjectHideFlags: 0
