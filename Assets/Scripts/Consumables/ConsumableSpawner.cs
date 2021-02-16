@@ -25,14 +25,40 @@ public class ConsumableSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (swordSpawnTimer == null)
-            swordSpawnTimer = StartCoroutine(SpawnItemTimer(Sword, 60, 120));
-        if (bowSpawnTimer == null)
-            bowSpawnTimer = StartCoroutine(SpawnItemTimer(Bow, 60, 120));
-        if (healthSpawnTimer == null)
-            healthSpawnTimer = StartCoroutine(SpawnItemTimer(HealthPotion, 5, 60));
-        if (strengthSpawnTimer == null)
-            strengthSpawnTimer = StartCoroutine(SpawnItemTimer(StrengthPotion, 5, 60));
+        if(CanSpawn)
+        {
+            if (swordSpawnTimer == null)
+                swordSpawnTimer = StartCoroutine(SpawnItemTimer(Sword, 60, 120));
+            if (bowSpawnTimer == null)
+                bowSpawnTimer = StartCoroutine(SpawnItemTimer(Bow, 60, 120));
+            if (healthSpawnTimer == null)
+                healthSpawnTimer = StartCoroutine(SpawnItemTimer(HealthPotion, 5, 60));
+            if (strengthSpawnTimer == null)
+                strengthSpawnTimer = StartCoroutine(SpawnItemTimer(StrengthPotion, 5, 60));
+        }
+        else
+        {
+            if(swordSpawnTimer != null)
+            {
+                StopCoroutine(swordSpawnTimer);
+                swordSpawnTimer = null;
+            }
+            if (bowSpawnTimer != null)
+            {
+                StopCoroutine(bowSpawnTimer);
+                bowSpawnTimer = null;
+            }
+            if (healthSpawnTimer != null)
+            {
+                StopCoroutine(healthSpawnTimer);
+                healthSpawnTimer = null;
+            }
+            if(strengthSpawnTimer != null)
+            {
+                StopCoroutine(strengthSpawnTimer);
+                strengthSpawnTimer = null;
+            }
+        }
     }
 
     private Vector3 CreateSpawnLocation()
@@ -84,7 +110,7 @@ public class ConsumableSpawner : MonoBehaviour
         {
             Vector3 spawnPos = CreateSpawnLocation();
 
-            float waitTime = Random.Range(_longestSpawnTime, _longestSpawnTime);
+            float waitTime = Random.Range(_lowestSpawnTime, _longestSpawnTime);
             yield return new WaitForSeconds(waitTime);
 
             if (spawnPos != Vector3.zero)
