@@ -3,6 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(Character))]
 public class BossAI : MonoBehaviour
 {
+    [SerializeField] private Character _player;
+
     private float _timeToNextMove;
     private Character _character;
 
@@ -14,17 +16,26 @@ public class BossAI : MonoBehaviour
 
 	private void Update()
     {
-        if(_timeToNextMove <= 0)
+        if(Vector3.Distance(transform.position, _player.transform.position) > 2.5F)
+		{
+            transform.LookAt(_player.transform);
+            _character.Move(_player.transform.position - transform.position);
+		}
+        else if(_player.IsSwingingSword)
+		{
+            _character.Jump();
+		}
+        else if(!_character.IsJumping && _timeToNextMove <= 0)
 		{
             SetRandomTimeToNextMove();
             _character.SwingSword();
         }
-
+        
         _timeToNextMove -= Time.deltaTime;
     }
 
     private void SetRandomTimeToNextMove()
 	{
-        _timeToNextMove = Random.Range(0.1F, 3.0F);
+        _timeToNextMove = Random.Range(0.1F, 1.0F);
     }
 }

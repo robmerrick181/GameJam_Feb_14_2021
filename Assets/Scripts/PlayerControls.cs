@@ -6,63 +6,40 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] [Range(0.0001F, 0.05F)] private float _strafingSensitivity = 0.02F;
 
     private Character _character;
-    private Rigidbody _rigidBody;
 
 	private void Start()
 	{
         _character = GetComponent<Character>();
-		_rigidBody = GetComponent<Rigidbody>();
 	}
 
 	private void Update()
     {
-        UpdateStrafing();
 		UpdateJump();
         UpdateSword();
+        UpdateMovement();
     }
 
-	private void UpdateStrafing()
+    private void UpdateMovement()
 	{
-        Vector3 translation = Vector3.zero;
-        Vector3 cameraForward = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z);
-        Vector3 cameraBackward = -cameraForward;
-        Vector3 cameraRight = Camera.main.transform.right;
-        Vector3 cameraLeft = -cameraRight;
-
-        if(Input.GetKey(KeyCode.W))
-        {
-            translation += cameraForward;
-        }
-
-        if(Input.GetKey(KeyCode.A))
-        {
-            translation += cameraLeft;
-        }
-
-        if(Input.GetKey(KeyCode.S))
-        {
-            translation += cameraBackward;
-        }
-
-        if(Input.GetKey(KeyCode.D))
-        {
-            translation += cameraRight;
-        }
-
-        _rigidBody.MovePosition(_rigidBody.position + translation.normalized * _strafingSensitivity);
-    }
-
+        Vector3 leftRightTranslation = Camera.main.transform.right * Input.GetAxis("Horizontal");
+        Vector3 forwardBackwardTranslation = Camera.main.transform.forward * Input.GetAxis("Vertical");
+        Vector3 finalTranslation = leftRightTranslation + forwardBackwardTranslation;
+        finalTranslation = new Vector3(finalTranslation.x, 0, finalTranslation.z);
+        finalTranslation *= _strafingSensitivity;
+        _character.Move(finalTranslation);
+	}
+    
     private void UpdateJump()
 	{
-        if(Input.GetKeyDown(KeyCode.Space) && Mathf.Abs(_rigidBody.velocity.y) < Mathf.Epsilon)
+        if(Input.GetButtonDown("Jump"))
 		{
-            _rigidBody.AddForce(6.5F * Vector3.up, ForceMode.Impulse);
+            _character.Jump();
 		}
 	}
 
     private void UpdateSword()
 	{
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetButtonDown("Fire1"))
 		{
             _character.SwingSword();
 		}

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3999274374405075453}
   - component: {fileID: 3999274374405075424}
   - component: {fileID: 3999274374405075431}
+  - component: {fileID: 8497458875553650168}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -93,7 +94,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3999274374405075454}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 615ead1906ab64e4cba51b40be3a3b12, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -140,6 +141,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17385c68989afcd43a25cc3a17e49be0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8497458875553650168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3999274374405075454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e3d82104d241154f930d4285bf13b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startingHealthPoints: 100
+  _startingStrength: 10
 --- !u!1001 &3999274374461715924
 PrefabInstance:
   m_ObjectHideFlags: 0
