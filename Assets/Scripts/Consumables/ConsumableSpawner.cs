@@ -38,22 +38,22 @@ public class ConsumableSpawner : MonoBehaviour
         }
         else
         {
-            if(!swordSpawnTimer != null)
+            if(swordSpawnTimer != null)
             {
                 StopCoroutine(swordSpawnTimer);
                 swordSpawnTimer = null;
             }
-            if (!bowSpawnTimer != null)
+            if (bowSpawnTimer != null)
             {
                 StopCoroutine(bowSpawnTimer);
                 bowSpawnTimer = null;
             }
-            if (!healthSpawnTimer != null)
+            if (healthSpawnTimer != null)
             {
                 StopCoroutine(healthSpawnTimer);
                 healthSpawnTimer = null;
             }
-            if(!strengthSpawnTimer != null)
+            if(strengthSpawnTimer != null)
             {
                 StopCoroutine(strengthSpawnTimer);
                 strengthSpawnTimer = null;
