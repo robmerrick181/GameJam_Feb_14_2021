@@ -1,31 +1,46 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterStats: MonoBehaviour
 {
-    public int StartingHealthPoints = 100;
-    public int StartingStrength = 10;
-    public int CurrentHealthPoints;
-    public int CurrentStrength;
+    [SerializeField] private float _startingHealthPoints = 100.0F;
+    [SerializeField] private float _startingStrength = 10.0F;
 
-    public void ChangeStrength(int _strength)
+    private float _currentHealthPoints;
+    private float _currentStrength;
+
+    public float StartingHealthPoints => _startingHealthPoints;
+    public float StartingStrength => _startingStrength;
+    public float CurrentHealthPoints => _currentHealthPoints;
+    public float CurrentStrength => _currentStrength;
+
+	private void Start()
+	{
+		_currentHealthPoints = _startingHealthPoints;
+        _currentStrength = _startingStrength;
+	}
+
+	public void ChangeStrength(float _strength)
     {
-        CurrentStrength += _strength;
+        _currentStrength += _strength;
     }
 
     public void ResetStrength()
     {
-        CurrentStrength = StartingStrength;
+        _currentStrength = _startingStrength;
     }
 
-    public void ChangeHealth(int _health)
+    public void ChangeHealth(float _health)
     {
-        CurrentHealthPoints += _health;
+        _currentHealthPoints += _health;
+
+        if(_currentHealthPoints <= 0)
+		{
+            Debug.LogError("GAME OVER. Someone died."); //TODO: Implement this
+		}
     }
 
     public void ResetHealth()
     {
-        CurrentHealthPoints = StartingHealthPoints;
+        _currentHealthPoints = _startingHealthPoints;
     }
 }

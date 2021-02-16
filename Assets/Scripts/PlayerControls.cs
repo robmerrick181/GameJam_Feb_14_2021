@@ -1,23 +1,23 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Character))]
 public class PlayerControls : MonoBehaviour
 {
     [SerializeField] [Range(0.0001F, 0.05F)] private float _strafingSensitivity = 0.02F;
 
+    private Character _character;
     private Rigidbody _rigidBody;
-    private Animator _animator;
 
 	private void Start()
 	{
+        _character = GetComponent<Character>();
 		_rigidBody = GetComponent<Rigidbody>();
-        _animator = GetComponentInChildren<Animator>();
 	}
 
 	private void Update()
     {
         UpdateStrafing();
 		UpdateJump();
-        CorrectRotation();
         UpdateSword();
     }
 
@@ -60,17 +60,11 @@ public class PlayerControls : MonoBehaviour
 		}
 	}
 
-    private void CorrectRotation()
-	{
-        transform.rotation = Quaternion.Euler(0.0F, transform.rotation.eulerAngles.y, 0.0F);
-    }
-
     private void UpdateSword()
 	{
         if(Input.GetMouseButtonDown(0))
 		{
-            Debug.Log("Animating sword!");
-            _animator.SetTrigger("Swing1");
+            _character.SwingSword();
 		}
 	}
 }
