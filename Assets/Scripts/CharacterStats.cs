@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class CharacterStats: MonoBehaviour
@@ -7,6 +8,7 @@ public class CharacterStats: MonoBehaviour
 
     private float _currentHealthPoints;
     private float _currentStrength;
+    private Action _deathCallback = null;
 
     public float StartingHealthPoints => _startingHealthPoints;
     public float StartingStrength => _startingStrength;
@@ -18,6 +20,11 @@ public class CharacterStats: MonoBehaviour
 		_currentHealthPoints = _startingHealthPoints;
         _currentStrength = _startingStrength;
 	}
+
+    public void SetDeathCallback(Action callback)
+    {
+        _deathCallback = callback;
+    }
 
 	public void ChangeStrength(float _strength)
     {
@@ -35,7 +42,7 @@ public class CharacterStats: MonoBehaviour
 
         if(_currentHealthPoints <= 0)
 		{
-            Debug.LogError("GAME OVER. Someone died."); //TODO: Implement this
+            _deathCallback.Invoke();
 		}
     }
 

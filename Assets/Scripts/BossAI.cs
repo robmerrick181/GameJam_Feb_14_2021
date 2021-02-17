@@ -16,26 +16,38 @@ public class BossAI : MonoBehaviour
 
 	private void Update()
     {
-        if(Vector3.Distance(transform.position, _player.transform.position) > 2.5F)
-		{
-            transform.LookAt(_player.transform);
-            _character.MoveXZ(_player.transform.position - transform.position);
-		}
-        else if(_player.IsSwingingSword)
-		{
-            _character.Jump();
-		}
-        else if(!_character.IsJumping && _timeToNextMove <= 0)
-		{
-            SetRandomTimeToNextMove();
-            _character.SwingSword();
+        if(_player.IsDead)
+        {
+            _character.Gloat();
         }
-        
-        _timeToNextMove -= Time.deltaTime;
+        else
+        {
+            if(Vector3.Distance(transform.position, _player.transform.position) > 2.5F)
+		    {
+                SetRandomTimeToNextMove();
+                _character.MoveXZ(_player.transform.position - transform.position);
+		    }
+            else
+            {
+                _character.MoveXZ(Vector3.zero);
+
+                if(_player.IsSwingingSword)
+                {
+                    _character.Jump();
+                }
+                else if(!_character.IsJumping && _timeToNextMove <= 0)
+                {
+                    SetRandomTimeToNextMove();
+                    _character.SwingSword();
+                }
+
+                _timeToNextMove -= Time.deltaTime;
+            }
+        }
     }
 
     private void SetRandomTimeToNextMove()
 	{
-        _timeToNextMove = Random.Range(0.1F, 1.0F);
+        _timeToNextMove = Random.Range(1.0F, 10.0F);
     }
 }
