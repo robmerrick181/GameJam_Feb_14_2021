@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class Sword : MonoBehaviour
 {
-	private void OnTriggerEnter(Collider other)
+	private void OnTriggerEnter(Collider collided)
 	{
-		Character character = other.gameObject.GetComponent<Character>();
+		Character character = collided.gameObject.GetComponent<Character>();
 		
-		if(character && character != transform.parent.GetComponent<Character>())
+		if(character && character != transform.root.GetComponent<Character>())
 		{
-			character.ApplyDamage(transform.parent.GetComponent<Character>());
+			character.ApplyDamage(transform.root.GetComponent<Character>());
 		}
 	}
 }

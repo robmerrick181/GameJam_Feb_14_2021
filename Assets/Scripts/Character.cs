@@ -13,11 +13,13 @@ public class Character : MonoBehaviour
 	private Animator _animator;
 	private Character _characterAttackingMe;
     private bool _isTakingDamage = false;
+	private bool _isGloating = false;
 	private Vector3 _xzVelocity = Vector3.zero;
 	private Quaternion _savedRotation = Quaternion.identity;
 
 	public bool IsSwingingSword { get; private set; } = false;
     public bool IsJumping { get; private set; } = false;
+	public bool IsDead { get; private set; } = false;
     public float MaxMovementSpeed => _maxMovementSpeed;
 
 	private void Start()
@@ -25,6 +27,7 @@ public class Character : MonoBehaviour
 		_rigidBody = GetComponent<Rigidbody>();
 		_characterStats = GetComponent<CharacterStats>();
 		_animator = GetComponentInChildren<Animator>();
+		_characterStats.SetDeathCallback(Die);
 	}
 
 	private void Update()
@@ -43,6 +46,7 @@ public class Character : MonoBehaviour
 			{
 				if(collision.GetContact(i).normal.y >= 0.8)
 				{
+					_animator.SetTrigger("Land");
 					IsJumping = false;
 					return;
 				}
@@ -52,22 +56,28 @@ public class Character : MonoBehaviour
 
 	public void MoveXZ(Vector3 translation)
 	{
+		if(IsDead)
+        {
+			translation = Vector3.zero;
+        }
+
 		translation = new Vector3(translation.x, 0, translation.z);
 		translation = Vector3.ClampMagnitude(translation, _maxMovementSpeed);
 		_xzVelocity = translation;
 
 		if(translation.magnitude >= Mathf.Epsilon)
-        {
+		{
 			transform.LookAt(transform.position + translation);
 			_rigidBody.MovePosition(_rigidBody.position + translation);
 			_savedRotation = transform.rotation;
-        }
+		}
 	}
 
 	public void Jump()
 	{
-		if(!IsJumping)
+		if(!IsDead && !IsJumping)
 		{
+			_animator.SetTrigger("Jump");
 			_rigidBody.AddForce(6.5F * Vector3.up, ForceMode.Impulse);
 			IsJumping = true;
 		}
@@ -75,16 +85,31 @@ public class Character : MonoBehaviour
 
 	public void SwingSword()
 	{
-		//_animator.SetTrigger("Swing1");
-		//IsSwingingSword = true;
-	}
+		if(!IsDead)
+        {
+			_animator.SetTrigger("Sword");
+			IsSwingingSword = true;
+        }
+    }
 
 	public void ApplyDamage(Character characterAttackingMe)
 	{
-		_characterAttackingMe = characterAttackingMe;
-		_characterStats.ChangeHealth(-_characterAttackingMe._characterStats.CurrentStrength);
-		_isTakingDamage = true;
-	}
+		if(!_isTakingDamage)
+        {
+			_characterAttackingMe = characterAttackingMe;
+			_characterStats.ChangeHealth(-_characterAttackingMe._characterStats.CurrentStrength);
+			_isTakingDamage = true;
+        }
+    }
+
+	public void Gloat()
+    {
+		if(!IsDead && !_isGloating)
+        {
+			_isGloating = true;
+			_animator.SetTrigger("Gloat");
+        }
+    }
 
 	private void UpdateAnimation()
     {
@@ -101,7 +126,7 @@ public class Character : MonoBehaviour
 
 	private void CheckIfNotSwingingSword()
 	{
-		if(IsSwingingSword && _animator.GetCurrentAnimatorStateInfo(0).IsName("SwordIdle"))
+		if(IsSwingingSword && _animator.GetCurrentAnimatorStateInfo(0).IsName("Movement"))
 		{
 			IsSwingingSword = false;
 		}
@@ -114,4 +139,10 @@ public class Character : MonoBehaviour
 			_isTakingDamage = false;
 		}
 	}
+
+	private void Die()
+    {
+		_animator.SetTrigger("Die");
+		IsDead = true;
+    }
 }
