@@ -19,6 +19,12 @@ public class PlayerControls : MonoBehaviour
         UpdateMovement();
     }
 
+    private void OnGUI()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     private void UpdateMovement()
 	{
         Vector3 leftRightTranslation = Camera.main.transform.right * Input.GetAxis("Horizontal");

@@ -67,8 +67,8 @@ public class Character : MonoBehaviour
 
 		if(translation.magnitude >= Mathf.Epsilon)
 		{
-			transform.LookAt(transform.position + translation);
-			_rigidBody.MovePosition(_rigidBody.position + translation);
+            transform.LookAt(transform.position + translation);
+            _rigidBody.MovePosition(_rigidBody.position + translation);
 			_savedRotation = transform.rotation;
 		}
 	}
