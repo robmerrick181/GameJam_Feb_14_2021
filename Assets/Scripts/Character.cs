@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterStats), typeof(Rigidbody))]
 public class Character : MonoBehaviour
 {
-	[SerializeField] [Range(0.0001F, 0.05F)] private float _maxMovementSpeed = 0.025F;
+	
 
 	private Rigidbody _rigidBody;
 	private CharacterStats _characterStats;
@@ -21,7 +21,8 @@ public class Character : MonoBehaviour
 	public bool IsSwingingSword { get; private set; } = false;
     public bool IsJumping { get; private set; } = false;
 	public bool IsDead { get; private set; } = false;
-    public float MaxMovementSpeed => _maxMovementSpeed;
+	private float MaxMovementSpeed; 
+	private int enemyLayer;
 
 	private void Start()
 	{
@@ -29,6 +30,12 @@ public class Character : MonoBehaviour
 		_characterStats = GetComponent<CharacterStats>();
 		_animator = GetComponentInChildren<Animator>();
 		_characterStats.SetDeathCallback(Die);
+		enemyLayer = 6;
+		MaxMovementSpeed = _characterStats.MaxMovementSpeed;
+		if (transform.name == "Boss")
+        {
+			enemyLayer = 7;
+		}
 	}
 
 	private void Update()
@@ -41,11 +48,11 @@ public class Character : MonoBehaviour
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		if(IsJumping && collision.gameObject.layer == 3)
+		if (IsJumping && collision.gameObject.layer == 3)
 		{
-			for(int i = 0; i < collision.contactCount; i++)
+			for (int i = 0; i < collision.contactCount; i++)
 			{
-				if(collision.GetContact(i).normal.y >= 0.8)
+				if (collision.GetContact(i).normal.y >= 0.8)
 				{
 					_animator.SetTrigger("Land");
 					IsJumping = false;
@@ -53,9 +60,15 @@ public class Character : MonoBehaviour
 				}
 			}
 		}
+
+		else if (collision.gameObject.layer == 3)
+			return;
+
+		else if (collision.gameObject.layer == enemyLayer && collision.collider.name == "Blade")
+			ApplyDamage(collision.gameObject.GetComponent<Character>());
 	}
 
-	public void MoveXZ(Vector3 translation)
+	public void MoveXZ(Vector3 translation, bool targetSystemEngaged, Character targetCharacter)
 	{
 		if(IsDead)
         {
@@ -63,14 +76,25 @@ public class Character : MonoBehaviour
         }
 
 		translation = new Vector3(translation.x, 0, translation.z);
-		translation = Vector3.ClampMagnitude(translation, _maxMovementSpeed);
+		translation = Vector3.ClampMagnitude(translation, MaxMovementSpeed);
 		_xzVelocity = translation;
 
-		if(translation.magnitude >= Mathf.Epsilon)
+
+		if (translation.magnitude >= Mathf.Epsilon)
 		{
-            transform.LookAt(transform.position + translation);
-            _rigidBody.MovePosition(_rigidBody.position + translation);
+
+			_rigidBody.MovePosition(_rigidBody.position + translation);
+			if (!targetSystemEngaged)
+			{
+				transform.LookAt(transform.position + translation);
+			}
+			else
+			{
+				transform.LookAt(targetCharacter.transform.position);
+			}
 			_savedRotation = transform.rotation;
+
+
 		}
 	}
 
@@ -90,12 +114,13 @@ public class Character : MonoBehaviour
         {
 			_animator.SetTrigger("Sword");
 			IsSwingingSword = true;
+
         }
     }
 
 	public void ApplyDamage(Character characterAttackingMe)
 	{
-		if(!_isTakingDamage )
+		if(!_isTakingDamage && characterAttackingMe.IsSwingingSword)
         {
 			_characterAttackingMe = characterAttackingMe;
 			_characterStats.ChangeHealth(-_characterAttackingMe._characterStats.CurrentStrength);
@@ -116,7 +141,7 @@ public class Character : MonoBehaviour
 
 	private void UpdateAnimation()
     {
-		_animator.SetFloat("speedPercent", _xzVelocity.magnitude / _maxMovementSpeed);
+		_animator.SetFloat("speedPercent", _xzVelocity.magnitude / MaxMovementSpeed);
     }
 
 	/// <summary>
@@ -151,5 +176,6 @@ public class Character : MonoBehaviour
     {
 		_animator.SetTrigger("Die");
 		IsDead = true;
+		IsSwingingSword = false;
     }
 }

@@ -14,12 +14,13 @@ public class CharacterStats: MonoBehaviour
     public float StartingStrength => _startingStrength;
     public float CurrentHealthPoints => _currentHealthPoints;
     public float CurrentStrength => _currentStrength;
+    public float MaxMovementSpeed;
 
-	private void Start()
+    private void Start()
 	{
 		_currentHealthPoints = _startingHealthPoints;
         _currentStrength = _startingStrength;
-	}
+    }
 
     public void SetDeathCallback(Action callback)
     {
