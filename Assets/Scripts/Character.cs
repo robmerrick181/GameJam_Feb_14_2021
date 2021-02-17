@@ -6,18 +6,19 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterStats), typeof(Rigidbody))]
 public class Character : MonoBehaviour
 {
-	[SerializeField] [Range(0.0001F, 0.05F)] private float _maxMovementSpeed = 0.02F;
+	[SerializeField] [Range(0.0001F, 0.05F)] private float _maxMovementSpeed = 0.025F;
 
 	private Rigidbody _rigidBody;
 	private CharacterStats _characterStats;
 	private Animator _animator;
 	private Character _characterAttackingMe;
-	private bool _isJumping = false;
-	private bool _isTakingDamage = false;
+    private bool _isTakingDamage = false;
+	private Vector3 _xzVelocity = Vector3.zero;
+	private Quaternion _savedRotation = Quaternion.identity;
 
 	public bool IsSwingingSword { get; private set; } = false;
-	public bool IsJumping => _isJumping;
-	public float MaxMovementSpeed => _maxMovementSpeed;
+    public bool IsJumping { get; private set; } = false;
+    public float MaxMovementSpeed => _maxMovementSpeed;
 
 	private void Start()
 	{
@@ -28,6 +29,7 @@ public class Character : MonoBehaviour
 
 	private void Update()
 	{
+		UpdateAnimation();
 		StandUpright();
 		CheckIfNotSwingingSword();
 		CheckIfNotTakingDamage();
@@ -35,39 +37,46 @@ public class Character : MonoBehaviour
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		if(_isJumping && collision.gameObject.layer == 3)
+		if(IsJumping && collision.gameObject.layer == 3)
 		{
 			for(int i = 0; i < collision.contactCount; i++)
 			{
 				if(collision.GetContact(i).normal.y >= 0.8)
 				{
-					_isJumping = false;
+					IsJumping = false;
 					return;
 				}
 			}
 		}
 	}
 
-	public void Move(Vector3 translation)
+	public void MoveXZ(Vector3 translation)
 	{
+		translation = new Vector3(translation.x, 0, translation.z);
 		translation = Vector3.ClampMagnitude(translation, _maxMovementSpeed);
-		transform.LookAt(transform.position + translation);
-		_rigidBody.MovePosition(_rigidBody.position + translation);
+		_xzVelocity = translation;
+
+		if(translation.magnitude >= Mathf.Epsilon)
+        {
+			transform.LookAt(transform.position + translation);
+			_rigidBody.MovePosition(_rigidBody.position + translation);
+			_savedRotation = transform.rotation;
+        }
 	}
 
 	public void Jump()
 	{
-		if(!_isJumping)
+		if(!IsJumping)
 		{
 			_rigidBody.AddForce(6.5F * Vector3.up, ForceMode.Impulse);
-			_isJumping = true;
+			IsJumping = true;
 		}
 	}
 
 	public void SwingSword()
 	{
-		_animator.SetTrigger("Swing1");
-		IsSwingingSword = true;
+		//_animator.SetTrigger("Swing1");
+		//IsSwingingSword = true;
 	}
 
 	public void ApplyDamage(Character characterAttackingMe)
@@ -77,12 +86,17 @@ public class Character : MonoBehaviour
 		_isTakingDamage = true;
 	}
 
+	private void UpdateAnimation()
+    {
+		_animator.SetFloat("speedPercent", _xzVelocity.magnitude / _maxMovementSpeed);
+    }
+
 	/// <summary>
 	/// This just keeps the character standing upright. They tend to fall over when they're holding swords. Steel's heavy, you know.
 	/// </summary>
 	private void StandUpright()
 	{
-		transform.rotation = Quaternion.Euler(0.0F, transform.rotation.eulerAngles.y, 0.0F);
+		transform.rotation = Quaternion.Euler(new Vector3(0, _savedRotation.eulerAngles.y, 0));
 	}
 
 	private void CheckIfNotSwingingSword()

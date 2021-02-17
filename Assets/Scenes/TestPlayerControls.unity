@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1484,13 +1484,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3999274374405075431, guid: 3227ec538d21bc748913f081a0cd2d6c, type: 3}
-      propertyPath: _maxMovementSpeed
-      value: 0.015
-      objectReference: {fileID: 0}
     - target: {fileID: 3999274374405075454, guid: 3227ec538d21bc748913f081a0cd2d6c, type: 3}
       propertyPath: m_Name
       value: Boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 3999274374405075454, guid: 3227ec538d21bc748913f081a0cd2d6c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3227ec538d21bc748913f081a0cd2d6c, type: 3}
@@ -1613,6 +1613,14 @@ PrefabInstance:
     - target: {fileID: 8333554944253737685, guid: 87368079952c6a24c9770b9081c88f8d, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8333554944253737688, guid: 87368079952c6a24c9770b9081c88f8d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8333554944253737690, guid: 87368079952c6a24c9770b9081c88f8d, type: 3}
+      propertyPath: m_Constraints
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 8333554944253737694, guid: 87368079952c6a24c9770b9081c88f8d, type: 3}
       propertyPath: m_RootOrder

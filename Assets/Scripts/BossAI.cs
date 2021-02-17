@@ -19,7 +19,7 @@ public class BossAI : MonoBehaviour
         if(Vector3.Distance(transform.position, _player.transform.position) > 2.5F)
 		{
             transform.LookAt(_player.transform);
-            _character.Move(_player.transform.position - transform.position);
+            _character.MoveXZ(_player.transform.position - transform.position);
 		}
         else if(_player.IsSwingingSword)
 		{
