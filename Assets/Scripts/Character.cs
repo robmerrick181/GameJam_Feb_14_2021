@@ -100,7 +100,7 @@ public class Character : MonoBehaviour
 			_characterAttackingMe = characterAttackingMe;
 			_characterStats.ChangeHealth(-_characterAttackingMe._characterStats.CurrentStrength);
 			_isTakingDamage = true;
-			damageCooldown = 0.5f;
+			damageCooldown = 0.25f;
 
         }
     }
