@@ -17,6 +17,7 @@ public class Character : MonoBehaviour
 	private Vector3 _xzVelocity = Vector3.zero;
 	private Quaternion _savedRotation = Quaternion.identity;
 
+	public float damageCooldown = 0f;
 	public bool IsSwingingSword { get; private set; } = false;
     public bool IsJumping { get; private set; } = false;
 	public bool IsDead { get; private set; } = false;
@@ -94,12 +95,13 @@ public class Character : MonoBehaviour
 
 	public void ApplyDamage(Character characterAttackingMe)
 	{
-		if(!_isTakingDamage)
+		if(!_isTakingDamage )
         {
 			_characterAttackingMe = characterAttackingMe;
 			_characterStats.ChangeHealth(-_characterAttackingMe._characterStats.CurrentStrength);
 			_isTakingDamage = true;
-			characterAttackingMe.IsSwingingSword = false;
+			damageCooldown = 0.5f;
+
         }
     }
 
@@ -135,10 +137,18 @@ public class Character : MonoBehaviour
 
 	private void CheckIfNotTakingDamage()
 	{
-		if(_isTakingDamage && !_characterAttackingMe.IsSwingingSword)
+		if(_isTakingDamage && damageCooldown <= 0)
 		{
 			_isTakingDamage = false;
 		}
+		else
+        {
+			damageCooldown -= Time.deltaTime;
+			if (damageCooldown <= 0)
+            {
+				_isTakingDamage = false;
+            }
+        }
 	}
 
 	private void Die()
