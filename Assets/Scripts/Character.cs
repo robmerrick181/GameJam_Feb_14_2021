@@ -99,6 +99,7 @@ public class Character : MonoBehaviour
 			_characterAttackingMe = characterAttackingMe;
 			_characterStats.ChangeHealth(-_characterAttackingMe._characterStats.CurrentStrength);
 			_isTakingDamage = true;
+			characterAttackingMe.IsSwingingSword = false;
         }
     }
 
