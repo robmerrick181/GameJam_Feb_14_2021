@@ -144,10 +144,6 @@ public class Character : MonoBehaviour
 		else
         {
 			damageCooldown -= Time.deltaTime;
-			if (damageCooldown <= 0)
-            {
-				_isTakingDamage = false;
-            }
         }
 	}
 
