@@ -167,7 +167,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26067809}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1700001, y: 6, z: -8}
+  m_LocalPosition: {x: 1.1700001, y: 6.94, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -824,7 +824,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1487436436}
-  m_LocalRotation: {x: 0.090379655, y: 0.20181186, z: -0.018706106, w: 0.97506595}
+  m_LocalRotation: {x: 0.07199712, y: 0.20212844, z: -0.014901431, w: 0.97659534}
   m_LocalPosition: {x: -8.462198, y: 10.537467, z: -30.272467}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -868,7 +868,7 @@ Camera:
   m_GameObject: {fileID: 1624735294}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.10568708, g: 0.1792453, b: 0.17331293, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -909,7 +909,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1624735294}
-  m_LocalRotation: {x: 0.090379655, y: 0.20181186, z: -0.018706106, w: 0.97506595}
+  m_LocalRotation: {x: 0.07199712, y: 0.20212844, z: -0.014901431, w: 0.97659534}
   m_LocalPosition: {x: -8.462198, y: 10.537467, z: -30.272467}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1213,6 +1213,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e73a834a397f714418892575566af31e, type: 3}
       propertyPath: m_Name
       value: Arena
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e73a834a397f714418892575566af31e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1661007495284504970, guid: e73a834a397f714418892575566af31e, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1610,6 +1614,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 897313948743745058, guid: 87368079952c6a24c9770b9081c88f8d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f27af6d871a09ca4197b65dc7bf34260, type: 2}
     - target: {fileID: 8333554944253737685, guid: 87368079952c6a24c9770b9081c88f8d, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1632,7 +1640,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8333554944253737694, guid: 87368079952c6a24c9770b9081c88f8d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6
+      value: 6.94
       objectReference: {fileID: 0}
     - target: {fileID: 8333554944253737694, guid: 87368079952c6a24c9770b9081c88f8d, type: 3}
       propertyPath: m_LocalPosition.z
