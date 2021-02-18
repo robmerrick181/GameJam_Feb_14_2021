@@ -141,8 +141,11 @@ public class Character : MonoBehaviour
 
 	private void UpdateAnimation()
     {
-		_animator.SetFloat("speedPercent", _xzVelocity.magnitude / MaxMovementSpeed);
-    }
+		float velocityProjectedOntoForward = Vector3.Dot(_xzVelocity, transform.forward);
+		float velocityProjectedOntoRight = Vector3.Dot(_xzVelocity, transform.right);
+		_animator.SetFloat("speedPercentZ", velocityProjectedOntoForward / MaxMovementSpeed); 
+		_animator.SetFloat("SpeedPercentX", velocityProjectedOntoRight / MaxMovementSpeed);
+	}
 
 	/// <summary>
 	/// This just keeps the character standing upright. They tend to fall over when they're holding swords. Steel's heavy, you know.
