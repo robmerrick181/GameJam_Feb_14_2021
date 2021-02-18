@@ -3,19 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-/* TODO
- * Equip item when trigger is intiated
- * If equipped disable trigger
- * 
- * Public damage
- * serialized private local position
- * serialized private local rotation
- * 
- * public Drop this item
- * 
- */ 
-
-
 /// <summary>
 /// Control equipping, equip position, equip rotation, damage, dropping this equipped item
 /// </summary>
@@ -35,11 +22,13 @@ public class WeaponController : MonoBehaviour
         transform.SetParent(ParentToObj.transform);
         transform.localPosition = _posEquipped;
         transform.localRotation = _rotEquipped;
+        _isEquipped = true;
     }
 
     private void UnEquipItem()
     {
         transform.SetParent(null);
+        _isEquipped = false;
     }
 
     private void OnTriggerEnter(Collider other)
