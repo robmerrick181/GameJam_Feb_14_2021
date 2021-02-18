@@ -61,8 +61,8 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: 26b0b29555274b14bacac786f52a2dc7, type: 3}
     m_Threshold: -1
-    m_Position: {x: 0, y: 0}
-    m_TimeScale: 1
+    m_Position: {x: -1, y: 0}
+    m_TimeScale: 3
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
@@ -70,33 +70,41 @@ BlendTree:
     m_Motion: {fileID: -203655887218126122, guid: eee2e87aeb4ea924ea54bf3ce5c3b795, type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
-    m_TimeScale: 1
-    m_CycleOffset: 0
-    m_DirectBlendParameter: Blend
-    m_Mirror: 0
-  - serializedVersion: 2
-    m_Motion: {fileID: -203655887218126122, guid: 6025110c3e1095544a62280e36ec9730, type: 3}
-    m_Threshold: 0.5
-    m_Position: {x: -1, y: 0}
-    m_TimeScale: 1
+    m_TimeScale: 2
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: e357a2a5a59bef541bd968d1ef11f314, type: 3}
     m_Threshold: 1
-    m_Position: {x: -0.96, y: 0.26}
-    m_TimeScale: 1
+    m_Position: {x: 1, y: 0}
+    m_TimeScale: 1.2
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
-  m_BlendParameter: speedPercent
-  m_BlendParameterY: VelocityZ
+  - serializedVersion: 2
+    m_Motion: {fileID: -203655887218126122, guid: 4d468a97b870f464db051130a5908044, type: 3}
+    m_Threshold: 2
+    m_Position: {x: 0, y: -1}
+    m_TimeScale: 3
+    m_CycleOffset: 0
+    m_DirectBlendParameter: speedPercentZ
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -203655887218126122, guid: 4d468a97b870f464db051130a5908044, type: 3}
+    m_Threshold: 3
+    m_Position: {x: 0, y: 1}
+    m_TimeScale: -3
+    m_CycleOffset: 0
+    m_DirectBlendParameter: speedPercentZ
+    m_Mirror: 0
+  m_BlendParameter: speedPercentZ
+  m_BlendParameterY: SpeedPercentX
   m_MinThreshold: -1
-  m_MaxThreshold: 1
+  m_MaxThreshold: 3
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
-  m_BlendType: 0
+  m_BlendType: 1
 --- !u!1107 &-1987586645359891284
 AnimatorStateMachine:
   serializedVersion: 6
@@ -108,19 +116,19 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1344190921425393368}
-    m_Position: {x: 380, y: 120, z: 0}
+    m_Position: {x: 460, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4058482338537614801}
-    m_Position: {x: 380, y: 280, z: 0}
+    m_Position: {x: 510, y: 380, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3303597313119516500}
-    m_Position: {x: 380, y: -30, z: 0}
+    m_Position: {x: 650, y: -90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1928612439758095923}
-    m_Position: {x: 620, y: -30, z: 0}
+    m_Position: {x: 280, y: -90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8827676579748214875}
-    m_Position: {x: 620, y: 280, z: 0}
+    m_Position: {x: 130, y: 280, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -165,7 +173,7 @@ AnimatorController:
   m_Name: CharacterAnimatorController
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: speedPercent
+  - m_Name: speedPercentZ
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -197,6 +205,12 @@ AnimatorController:
     m_Controller: {fileID: 0}
   - m_Name: Gloat
     m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: SpeedPercentX
+    m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
