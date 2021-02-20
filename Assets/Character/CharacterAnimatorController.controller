@@ -150,7 +150,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: speedPercentZ
     m_Mirror: 0
-  m_BlendParameter: speedPercentZ
+  m_BlendParameter: SpeedPercentZ
   m_BlendParameterY: SpeedPercentX
   m_MinThreshold: -1
   m_MaxThreshold: 3
@@ -256,7 +256,7 @@ AnimatorController:
   m_Name: CharacterAnimatorController
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: speedPercentZ
+  - m_Name: SpeedPercentZ
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -305,6 +305,12 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: EndBlock
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: IsSwingingSword
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
