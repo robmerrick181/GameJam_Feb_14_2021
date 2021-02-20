@@ -6,8 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterStats), typeof(Rigidbody))]
 public class Character : MonoBehaviour
 {
-	
-
 	private Rigidbody _rigidBody;
 	private CharacterStats _characterStats;
 	private Animator _animator;
@@ -32,7 +30,8 @@ public class Character : MonoBehaviour
 		_characterStats.SetDeathCallback(Die);
 		enemyLayer = 6;
 		MaxMovementSpeed = _characterStats.MaxMovementSpeed;
-		if (transform.name == "Boss")
+
+		if(transform.name == "Boss")
         {
 			enemyLayer = 7;
 		}
@@ -42,13 +41,13 @@ public class Character : MonoBehaviour
 	{
 		UpdateAnimation();
 		StandUpright();
-		CheckIfNotSwingingSword();
+		SetIsSwingingSword();
 		CheckIfNotTakingDamage();
 	}
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		if (IsJumping && collision.gameObject.layer == 3)
+		if(IsJumping && collision.gameObject.layer == 3)
 		{
 			for (int i = 0; i < collision.contactCount; i++)
 			{
@@ -60,12 +59,10 @@ public class Character : MonoBehaviour
 				}
 			}
 		}
-
 		else if (collision.gameObject.layer == 3)
 			return;
-
 		else if (collision.gameObject.layer == enemyLayer && collision.collider.name == "Blade")
-			ApplyDamage(collision.gameObject.GetComponent<Character>());
+			TakeDamage(collision.gameObject.GetComponent<Character>());
 	}
 
 	public void MoveXZ(Vector3 translation, bool targetSystemEngaged, Character targetCharacter)
@@ -79,11 +76,10 @@ public class Character : MonoBehaviour
 		translation = Vector3.ClampMagnitude(translation, MaxMovementSpeed);
 		_xzVelocity = translation;
 
-
-		if (translation.magnitude >= Mathf.Epsilon)
+		if(translation.magnitude >= Mathf.Epsilon)
 		{
+			_rigidBody.MovePosition(_rigidBody.position + 110.0F * translation * Time.deltaTime);
 
-			_rigidBody.MovePosition(_rigidBody.position + translation);
 			if (!targetSystemEngaged)
 			{
 				transform.LookAt(transform.position + translation);
@@ -92,9 +88,8 @@ public class Character : MonoBehaviour
 			{
 				transform.LookAt(targetCharacter.transform.position);
 			}
+
 			_savedRotation = transform.rotation;
-
-
 		}
 	}
 
@@ -114,11 +109,10 @@ public class Character : MonoBehaviour
         {
 			_animator.SetTrigger("Sword");
 			IsSwingingSword = true;
-
         }
     }
 
-	public void ApplyDamage(Character characterAttackingMe)
+	public void TakeDamage(Character characterAttackingMe)
 	{
 		if(!_isTakingDamage && characterAttackingMe.IsSwingingSword)
         {
@@ -126,7 +120,6 @@ public class Character : MonoBehaviour
 			_characterStats.ChangeHealth(-_characterAttackingMe._characterStats.CurrentStrength);
 			_isTakingDamage = true;
 			damageCooldown = 0.25f;
-
         }
     }
 
@@ -143,7 +136,7 @@ public class Character : MonoBehaviour
     {
 		float velocityProjectedOntoForward = Vector3.Dot(_xzVelocity, transform.forward);
 		float velocityProjectedOntoRight = Vector3.Dot(_xzVelocity, transform.right);
-		_animator.SetFloat("speedPercentZ", velocityProjectedOntoForward / MaxMovementSpeed); 
+		_animator.SetFloat("SpeedPercentZ", velocityProjectedOntoForward / MaxMovementSpeed); 
 		_animator.SetFloat("SpeedPercentX", velocityProjectedOntoRight / MaxMovementSpeed);
 	}
 
@@ -155,12 +148,9 @@ public class Character : MonoBehaviour
 		transform.rotation = Quaternion.Euler(new Vector3(0, _savedRotation.eulerAngles.y, 0));
 	}
 
-	private void CheckIfNotSwingingSword()
+	private void SetIsSwingingSword()
 	{
-		if(IsSwingingSword && _animator.GetCurrentAnimatorStateInfo(0).IsName("Movement"))
-		{
-			IsSwingingSword = false;
-		}
+		IsSwingingSword = _animator.GetBool("IsSwingingSword");
 	}
 
 	private void CheckIfNotTakingDamage()
@@ -180,5 +170,18 @@ public class Character : MonoBehaviour
 		_animator.SetTrigger("Die");
 		IsDead = true;
 		IsSwingingSword = false;
+    }
+
+	public void BlockAttack(bool blocking)
+    {
+		
+		if (blocking)
+        {
+			_animator.SetTrigger("StartBlock");
+        }
+        else
+        {
+			_animator.SetTrigger("EndBlock");
+		}
     }
 }

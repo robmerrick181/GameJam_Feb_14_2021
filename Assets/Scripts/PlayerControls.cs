@@ -8,6 +8,7 @@ public class PlayerControls : MonoBehaviour
 
     private Character _character;
     private bool targetSystemEngaged = false;
+    private bool blockingEngaged = false;
 
     private void Start()
 	{
@@ -18,6 +19,7 @@ public class PlayerControls : MonoBehaviour
     {
 		UpdateJump();
         UpdateSword();
+        UpdateBlock();
         UpdateMovement();
         UpdateTarget();
     }
@@ -30,12 +32,14 @@ public class PlayerControls : MonoBehaviour
 
     private void UpdateMovement()
 	{
-        Vector3 leftRightTranslation = Camera.main.transform.right * Input.GetAxis("Horizontal");
-        Vector3 forwardBackwardTranslation = Camera.main.transform.forward * Input.GetAxis("Vertical");
-        Vector3 finalTranslation = leftRightTranslation + forwardBackwardTranslation;
-        //finalTranslation *= _strafingSensitivity;
-        _character.MoveXZ(finalTranslation, targetSystemEngaged, _targetCharacter);
-      
+        if (!blockingEngaged)
+        {
+            Vector3 leftRightTranslation = Camera.main.transform.right * Input.GetAxis("Horizontal");
+            Vector3 forwardBackwardTranslation = Camera.main.transform.forward * Input.GetAxis("Vertical");
+            Vector3 finalTranslation = leftRightTranslation + forwardBackwardTranslation;
+            //finalTranslation *= _strafingSensitivity;
+            _character.MoveXZ(finalTranslation, targetSystemEngaged, _targetCharacter);
+        }
 
 
     }
@@ -55,10 +59,23 @@ public class PlayerControls : MonoBehaviour
             _character.SwingSword();
 		}
     }
+    private void UpdateBlock()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            blockingEngaged = true;
+            _character.BlockAttack(blockingEngaged);
+        }
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            blockingEngaged = false;
+            _character.BlockAttack(blockingEngaged);
+        }
+    }
 
     private void UpdateTarget()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             targetSystemEngaged = !targetSystemEngaged;
         }
