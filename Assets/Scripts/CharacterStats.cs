@@ -5,21 +5,26 @@ public class CharacterStats: MonoBehaviour
 {
     [SerializeField] private float _startingHealthPoints = 100.0F;
     [SerializeField] private float _startingStrength = 10.0F;
+    [SerializeField] private float _startingWeaponDamage = 0.0f;
 
     private float _currentHealthPoints;
     private float _currentStrength;
+    private float _currentWeaponDamage;
     private Action _deathCallback = null;
 
     public float StartingHealthPoints => _startingHealthPoints;
     public float StartingStrength => _startingStrength;
     public float CurrentHealthPoints => _currentHealthPoints;
     public float CurrentStrength => _currentStrength;
+    public float StartingWeaponDamage => _startingWeaponDamage;
+    public float CurrentWeaponDamage => _currentWeaponDamage;
     public float MaxMovementSpeed;
 
     private void Start()
 	{
 		_currentHealthPoints = _startingHealthPoints;
         _currentStrength = _startingStrength;
+        _currentWeaponDamage = _startingWeaponDamage;
     }
 
     public void SetDeathCallback(Action callback)
@@ -35,6 +40,16 @@ public class CharacterStats: MonoBehaviour
     public void ResetStrength()
     {
         _currentStrength = _startingStrength;
+    }
+
+    public void ChangeWeaponDamage(float _damage)
+    {
+        _currentWeaponDamage += _damage;
+    }
+
+    public void ResetWeaponDamage()
+    {
+        _currentWeaponDamage = _startingWeaponDamage;
     }
 
     public void ChangeHealth(float _health)

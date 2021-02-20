@@ -9,13 +9,16 @@ public class ConsumableSpawner : MonoBehaviour
     [SerializeField] private Vector3 TriggerSize = new Vector3(15, 15, 15);
     private Vector3 DebugBoxSize = Vector3.zero;
 
+    [SerializeField] private float _swordStartingStrength = 10f;
+    private float _currentSwordStrength;
+
     [SerializeField] private GameObject Sword;
-    [SerializeField] private GameObject Bow;
+    //[SerializeField] private GameObject Bow;
     [SerializeField] private GameObject HealthPotion;
     [SerializeField] private GameObject StrengthPotion;
 
     private Coroutine swordSpawnTimer;
-    private Coroutine bowSpawnTimer;
+    //private Coroutine bowSpawnTimer;
     private Coroutine healthSpawnTimer;
     private Coroutine strengthSpawnTimer;
 
@@ -23,14 +26,19 @@ public class ConsumableSpawner : MonoBehaviour
 
     public bool CanSpawn = false;
 
+    private void Start()
+    {
+        _currentSwordStrength = _swordStartingStrength;
+    }
+
     private void Update()
     {
         if(CanSpawn)
         {
             if (swordSpawnTimer == null)
                 swordSpawnTimer = StartCoroutine(SpawnItemTimer(Sword, 60, 120));
-            if (bowSpawnTimer == null)
-                bowSpawnTimer = StartCoroutine(SpawnItemTimer(Bow, 60, 120));
+            //if (bowSpawnTimer == null)
+            //    bowSpawnTimer = StartCoroutine(SpawnItemTimer(Bow, 60, 120));
             if (healthSpawnTimer == null)
                 healthSpawnTimer = StartCoroutine(SpawnItemTimer(HealthPotion, 5, 60));
             if (strengthSpawnTimer == null)
@@ -43,11 +51,11 @@ public class ConsumableSpawner : MonoBehaviour
                 StopCoroutine(swordSpawnTimer);
                 swordSpawnTimer = null;
             }
-            if (bowSpawnTimer != null)
-            {
-                StopCoroutine(bowSpawnTimer);
-                bowSpawnTimer = null;
-            }
+            //if (bowSpawnTimer != null)
+            //{
+            //    StopCoroutine(bowSpawnTimer);
+            //    bowSpawnTimer = null;
+            //}
             if (healthSpawnTimer != null)
             {
                 StopCoroutine(healthSpawnTimer);
@@ -79,7 +87,7 @@ public class ConsumableSpawner : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(_spawnLocation, -transform.up, out hit, TriggerSize.y, GroundLayer, QueryTriggerInteraction.Ignore))
             {
-                _spawnLocation.y = hit.transform.position.y;
+                _spawnLocation.y = hit.transform.position.y + 0.5f;
                 SpawnAttempts = 0;
                 return _spawnLocation;
             }
@@ -102,6 +110,22 @@ public class ConsumableSpawner : MonoBehaviour
             item.SetActive(true);
         else
             StartCoroutine(RetrySetActive(item));
+
+        if (obj == Sword)
+            item.GetComponent<WeaponController>().Damage = SetSwordStrength();  
+    }
+
+    private float SetSwordStrength()
+    {
+        if (_currentSwordStrength < 10f)
+        {
+            return 10f;
+        }
+        else
+        {
+            _currentSwordStrength += Random.Range(0f, 5f);
+            return _currentSwordStrength;
+        }
     }
 
     private IEnumerator SpawnItemTimer(GameObject _obj, float _lowestSpawnTime, float _longestSpawnTime)
