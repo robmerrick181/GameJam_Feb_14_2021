@@ -12,6 +12,7 @@ public class Character : MonoBehaviour
 	private Character _characterAttackingMe;
     private bool _isTakingDamage = false;
 	private bool _isGloating = false;
+	private bool _isBoss = false;
 	private Vector3 _xzVelocity = Vector3.zero;
 	private Quaternion _savedRotation = Quaternion.identity;
 
@@ -28,13 +29,9 @@ public class Character : MonoBehaviour
 		_characterStats = GetComponent<CharacterStats>();
 		_animator = GetComponentInChildren<Animator>();
 		_characterStats.SetDeathCallback(Die);
-		enemyLayer = 6;
+		_isBoss = transform.name == "Boss";
+		enemyLayer = _isBoss ? 7 : 6;
 		MaxMovementSpeed = _characterStats.MaxMovementSpeed;
-
-		if(transform.name == "Boss")
-        {
-			enemyLayer = 7;
-		}
 	}
 
 	private void Update()
@@ -108,7 +105,6 @@ public class Character : MonoBehaviour
 		if(!IsDead)
         {
 			_animator.SetTrigger("Sword");
-			IsSwingingSword = true;
         }
     }
 
@@ -166,15 +162,14 @@ public class Character : MonoBehaviour
 	}
 
 	private void Die()
-    {
+	{
 		_animator.SetTrigger("Die");
 		IsDead = true;
 		IsSwingingSword = false;
-    }
+	}
 
 	public void BlockAttack(bool blocking)
     {
-		
 		if (blocking)
         {
 			_animator.SetTrigger("StartBlock");
