@@ -6,8 +6,6 @@ enum PotionType { Health, Strength};
 public class PotionConsumable : MonoBehaviour
 {
     [SerializeField] PotionType potion = PotionType.Health;
-    //Public so we can spawn a health potion with more/less health if so desired
-    public float StatToChange = 10f;
 
     private void OnTriggerEnter(Collider other)
     {
