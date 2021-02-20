@@ -41,6 +41,9 @@ public class CharacterStats: MonoBehaviour
     {
         _currentHealthPoints += _health;
 
+        if (_currentHealthPoints > _startingHealthPoints)
+            _currentHealthPoints = _startingHealthPoints;
+
         if(_currentHealthPoints <= 0)
 		{
             _deathCallback.Invoke();
