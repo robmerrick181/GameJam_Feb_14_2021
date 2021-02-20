@@ -3,7 +3,6 @@ using UnityEngine;
 [RequireComponent(typeof(Character))]
 public class PlayerControls : MonoBehaviour
 {
-    //[SerializeField] [Range(0.0001F, 0.05F)] private float _strafingSensitivity = 0.025F;
     [SerializeField] private Character _targetCharacter;
 
     private Character _character;
@@ -33,11 +32,7 @@ public class PlayerControls : MonoBehaviour
         Vector3 leftRightTranslation = Camera.main.transform.right * Input.GetAxis("Horizontal");
         Vector3 forwardBackwardTranslation = Camera.main.transform.forward * Input.GetAxis("Vertical");
         Vector3 finalTranslation = leftRightTranslation + forwardBackwardTranslation;
-        //finalTranslation *= _strafingSensitivity;
         _character.MoveXZ(finalTranslation, targetSystemEngaged, _targetCharacter);
-      
-
-
     }
     
     private void UpdateJump()
@@ -63,7 +58,4 @@ public class PlayerControls : MonoBehaviour
             targetSystemEngaged = !targetSystemEngaged;
         }
     }
-
-
-
 }
