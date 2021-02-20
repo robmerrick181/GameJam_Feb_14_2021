@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
-    private CharacterStats _player;
+    static public CharacterStats Player;
 
     static private int _healthPotions = 0;
     static private int _strengthPotions = 0;
@@ -23,10 +23,10 @@ public class InventoryManager : MonoBehaviour
 
     private void Start()
     {
-        if (!_player)
+        if (!Player)
         {
             GameObject _playerObj = GameObject.FindGameObjectWithTag("Player");
-            _player = _playerObj.GetComponent<CharacterStats>();
+            Player = _playerObj.GetComponent<CharacterStats>();
         }
         HealthText.text = _healthPotions.ToString();
         StrengthText.text = _strengthPotions.ToString();
@@ -34,15 +34,15 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
+        HealthText.text = _healthPotions.ToString();
+        StrengthText.text = _strengthPotions.ToString();
         if(Input.GetKeyDown(UseHealthKey))
         {
             UseHealthPotion(10f);
-            HealthText.text = _healthPotions.ToString();
         }
         if(Input.GetKeyDown(UsePotionKey))
         {
             UseStrengthPotion(10f);
-            StrengthText.text = _strengthPotions.ToString();
         }
     }
 
@@ -51,7 +51,7 @@ public class InventoryManager : MonoBehaviour
         if(_healthPotions > 0)
         {
             _healthPotions--;
-            _player.ChangeHealth(_addHealth);
+            Player.ChangeHealth(_addHealth);
         }
     }
 
@@ -60,7 +60,7 @@ public class InventoryManager : MonoBehaviour
         if(_strengthPotions > 0)
         {
             _strengthPotions--;
-            _player.ChangeStrength(_addStrength);
+            Player.ChangeStrength(_addStrength);
         }
     }
 
