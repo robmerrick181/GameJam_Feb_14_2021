@@ -12,8 +12,8 @@ public class InventoryManager : MonoBehaviour
 {
     private CharacterStats _player;
 
-    private int _healthPotions = 0;
-    private int _strengthPotions = 0;
+    static private int _healthPotions = 0;
+    static private int _strengthPotions = 0;
 
     [SerializeField] private KeyCode UseHealthKey = KeyCode.Alpha1;
     [SerializeField] private KeyCode UsePotionKey = KeyCode.Alpha2;
@@ -28,6 +28,8 @@ public class InventoryManager : MonoBehaviour
             GameObject _playerObj = GameObject.FindGameObjectWithTag("Player");
             _player = _playerObj.GetComponent<CharacterStats>();
         }
+        HealthText.text = _healthPotions.ToString();
+        StrengthText.text = _strengthPotions.ToString();
     }
 
     private void Update()
@@ -62,12 +64,12 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void AddHealthPotion()
+    static public void AddHealthPotion()
     {
         _healthPotions++;
     }
 
-    public void AddStrengthPotion()
+    static public void AddStrengthPotion()
     {
         _strengthPotions++;
     }
