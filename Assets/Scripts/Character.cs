@@ -181,4 +181,17 @@ public class Character : MonoBehaviour
 		IsDead = true;
 		IsSwingingSword = false;
     }
+
+	public void BlockAttack(bool blocking)
+    {
+		
+		if (blocking)
+        {
+			_animator.SetTrigger("StartBlock");
+        }
+        else
+        {
+			_animator.SetTrigger("EndBlock");
+		}
+    }
 }
