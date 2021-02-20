@@ -11,9 +11,21 @@ public class BossAIActionDecision : StateMachineBehaviour
 	{
 		_bossCharacter = animator.GetComponentInParent<Character>();
 
-		if(_bossCharacter.IsDead)
+		if(Random.value < 0.1F) //And the health is less than 50%
 		{
-			 
+			animator.SetTrigger("VulnerableLogic");
+		}
+		else if(Vector3.Distance(_bossCharacter.transform.position, _playerCharacter.transform.position) > 5.0F)
+		{
+			animator.SetTrigger("ChaseLogic");
+		}
+		else if(Random.value < 0.4F)
+		{
+			animator.SetTrigger("AttackLogic");
+		}
+		else
+		{
+			animator.SetTrigger("IdleLogic");
 		}
 	}
 
