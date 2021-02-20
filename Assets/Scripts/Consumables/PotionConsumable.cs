@@ -13,10 +13,10 @@ public class PotionConsumable : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            if (potion == PotionType.Health)
-                other.GetComponent<CharacterStats>().ChangeHealth(StatToChange);
-            else
-                other.GetComponentInParent<CharacterStats>().ChangeStrength(StatToChange);
+            if(potion == PotionType.Health)
+                InventoryManager.AddHealthPotion();
+            if (potion == PotionType.Strength)
+                InventoryManager.AddStrengthPotion();
             Destroy(gameObject);
         }
     }
