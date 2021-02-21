@@ -137,16 +137,16 @@ public class Character : MonoBehaviour
 
 			if (characterAttackingMe.name == "Player")
 			{
-				hitCount++;
 				if (hitCount < 5)
 				{
 					SpawnPhantom();
 				}
+				hitCount++;
 			}
 			if (gameObject.name == "player") 
 			{
-				Player.hitCount = 0;
-				//DespawnPhantoms();
+				hitCount = 0;
+				DespawnPhantoms();
 			}
 		}
     }
@@ -193,19 +193,11 @@ public class Character : MonoBehaviour
 			damageCooldown -= Time.deltaTime;
 			modelRenderer.material.EnableKeyword("_EMISSION");
 			modelRenderer.material.SetColor("_EmissionColor", Color.gray);
-			Debug.Log("Cooldown");
-			//Color color = modelRenderer.material.color;
-			//color.a = 0.0f;
-			//modelRenderer.material.SetColor("_Albedo", color);
 		}
 		if (damageCooldown < 0)
         {
 			modelRenderer.material.EnableKeyword("_EMISSION");
 			modelRenderer.material.SetColor("_EmissionColor", Color.black);
-			//Color color = modelRenderer.material.color;
-			//color.a = 1.0f;
-			//modelRenderer.material.SetColor("_Albedo", color);
-
 		}
 	}
 
