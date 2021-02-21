@@ -25,7 +25,7 @@ public class Character : MonoBehaviour
 	public CharacterStats CharacterStats => _characterStats;
 	private float MaxMovementSpeed; 
 	private int enemyLayer;
-	private int hitCount = 0;
+	static int hitCount = 0;
 
 	private void Start()
 	{
@@ -137,7 +137,7 @@ public class Character : MonoBehaviour
 
 			if (characterAttackingMe.name == "Player")
 			{
-				if (hitCount < 5)
+				if (hitCount < 5) //This is the one stored on the boss
 				{
 					SpawnPhantom();
 				}
@@ -145,9 +145,9 @@ public class Character : MonoBehaviour
 			}
 			if (gameObject.name == "Player") 
 			{
-				hitCount = 0;
-				DespawnPhantoms();
-			}
+                hitCount = 0; //this is the one stored on the player
+                DespawnPhantoms();
+            }
 		}
     }
 
@@ -221,10 +221,11 @@ public class Character : MonoBehaviour
     }
 	private void SpawnPhantom()
     {
-		_phantoms[hitCount].SetActive(true);
+		    _phantoms[hitCount].SetActive(true);
 	}
 	private void DespawnPhantoms()
     {
+        Debug.Log(hitCount);
 		for(int i = 0; i < 5; i++)
         {
 			_phantoms[i].SetActive(false);
