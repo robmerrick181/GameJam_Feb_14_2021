@@ -12,6 +12,7 @@ public class BossAIActionDecision : StateMachineBehaviour
 
 		if(_helper.BossCharacter.IsDead)
 		{
+			animator.SetTrigger("Die");
 			return;
 		}
 
@@ -21,18 +22,17 @@ public class BossAIActionDecision : StateMachineBehaviour
 		{
 			animator.SetTrigger("VulnerableLogic");
 		}
-		else if(Vector3.Distance(_helper.BossCharacter.transform.position, _helper.PlayerCharacter.transform.position) > 5.0F)
+		else if(_helper.ShouldChasePlayer())
 		{
 			animator.SetTrigger("ChaseLogic");
 		}
-		else if(Random.value < 0.4F)
+		else if(Random.value < 0.6F)
 		{
 			animator.SetTrigger("AttackLogic");
 		}
 		else
 		{
-			animator.SetTrigger("AttackLogic");
-			//animator.SetTrigger("IdleLogic");
+			animator.SetTrigger("IdleLogic");
 		}
 	}
 

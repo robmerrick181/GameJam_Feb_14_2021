@@ -13,9 +13,15 @@ public class BossAIChase : StateMachineBehaviour
 
 	public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
+		if(_helper.BossCharacter.IsDead)
+		{
+			animator.SetTrigger("ActionDecisionLogic");
+			return;
+		}
+		
 		_helper.BossCharacter.MoveXZ(_helper.PlayerCharacter.transform.position - _helper.BossCharacter.transform.position, false, null);
-
-		if(Vector3.Distance(_helper.PlayerCharacter.transform.position, _helper.BossCharacter.transform.position) < 5.0F)
+		
+		if(!_helper.ShouldChasePlayer())
 		{
 			animator.SetTrigger("ActionDecisionLogic");
 		}

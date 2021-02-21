@@ -61,7 +61,7 @@ public class Character : MonoBehaviour
 		}
 		else if (collision.gameObject.layer == 3)
 			return;
-		else if (collision.gameObject.layer == enemyLayer && collision.collider.CompareTag("Sword"));
+		else if (collision.gameObject.layer == enemyLayer && collision.collider.CompareTag("Sword"))
 			TakeDamage(collision.gameObject.GetComponent<Character>());
 	}
 
