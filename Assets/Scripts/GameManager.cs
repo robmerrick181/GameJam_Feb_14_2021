@@ -79,9 +79,9 @@ public class GameManager : MonoBehaviour
 
     private void CheckStatus()
     {
-        if (Player.CurrentHealthPoints < 0)
+        if (Player.CurrentHealthPoints <= 0)
             EndGame(GameStatus.Lose);
-        if (Boss.CurrentHealthPoints < 0)
+        if (Boss.CurrentHealthPoints <= 0)
             EndGame(GameStatus.Win);
     }
 
