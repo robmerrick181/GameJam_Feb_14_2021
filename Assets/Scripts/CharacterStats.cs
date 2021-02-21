@@ -45,7 +45,7 @@ public class CharacterStats: MonoBehaviour
 
     public void ChangeWeaponDamage(float _damage)
     {
-        _currentWeaponDamage += _damage;
+        _currentWeaponDamage = _damage;
     }
 
     public void ResetWeaponDamage()
