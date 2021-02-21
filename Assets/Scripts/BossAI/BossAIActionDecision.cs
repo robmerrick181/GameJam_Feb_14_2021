@@ -16,13 +16,19 @@ public class BossAIActionDecision : StateMachineBehaviour
 			return;
 		}
 
+		if(_helper.PlayerCharacter.IsDead)
+		{
+			animator.SetTrigger("Gloat");
+			return;
+		}
+
 		_helper.BossCharacter.transform.LookAt(_helper.PlayerCharacter.transform.position);
 
-		if(_helper.BossCharacter.CharacterStats.CurrentHealthPercent <= 0.5F && Random.value < 0.1F)
-		{
-			animator.SetTrigger("VulnerableLogic");
-		}
-		else if(_helper.ShouldChasePlayer())
+		//if(_helper.BossCharacter.CharacterStats.CurrentHealthPercent <= 0.5F && Random.value < 0.1F)
+		//{
+		//	animator.SetTrigger("VulnerableLogic");
+		//}
+		/*else*/ if(_helper.ShouldChasePlayer())
 		{
 			animator.SetTrigger("ChaseLogic");
 		}
