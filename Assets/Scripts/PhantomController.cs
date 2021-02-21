@@ -34,26 +34,42 @@ public class PhantomController : MonoBehaviour
         Vector3 playerVectorToBoss = _boss.transform.position - _player.transform.position;
         float playerDistanceToBoss = Vector3.Magnitude(playerVectorToBoss);
 
-        if (distanceToBoss > playerDistanceToBoss + 2f)
-        {
-            runToBoss = true;
-}
-        if (distanceToBoss > playerDistanceToBoss - 1f && distanceToBoss < playerDistanceToBoss +1f )
+        float targetradius = Mathf.Clamp(playerDistanceToBoss, innerRadius,  outerRadius);
+
+        if (distanceToBoss > targetradius )
         {
             runFromBoss = false;
-            runToBoss = false;
-            vectorToBoss = Vector3.zero;
+
+            if (distanceToBoss > targetradius + 3f)
+            {
+                
+                runToBoss = true;
+
+            }
         }
-        if (distanceToBoss < playerDistanceToBoss - 2f)
+        else if (distanceToBoss < targetradius )
         {
-            runFromBoss = true;
+            runToBoss = false;
+
+            if (distanceToBoss < targetradius - 3F)
+            {
+                runFromBoss = true;
+                
+            }
         }
+
 
         if( runFromBoss)
         {
             vectorToBoss = -vectorToBoss;
            
         }
+        if (!runFromBoss && !runToBoss)
+        {
+            vectorToBoss = Vector3.zero;
+        }
+
+
         _character.MoveXZ(vectorToBoss, true, _boss);
         if(_player.IsSwingingSword)
         {
