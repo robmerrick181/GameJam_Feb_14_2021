@@ -4,23 +4,20 @@ using UnityEngine;
 
 public class BossAIChase : StateMachineBehaviour
 {
-	private Character _player;
-	private Character _boss;
+	private BossAIHelper _helper;
 
 	public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Character>();
-		_boss = animator.GetComponentInParent<Character>();
+		_helper = new BossAIHelper(animator);
 	}
 
 	public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		_boss.MoveXZ(_player.transform.position - _boss.transform.position, false, null);
-		_boss.transform.LookAt(_player.transform.position);
+		_helper.BossCharacter.MoveXZ(_helper.PlayerCharacter.transform.position - _helper.BossCharacter.transform.position, false, null);
 
-		if(Vector3.Distance(_player.transform.position, _boss.transform.position) < 10.0F)
+		if(Vector3.Distance(_helper.PlayerCharacter.transform.position, _helper.BossCharacter.transform.position) < 5.0F)
 		{
-			animator.SetTrigger("Attack");
+			animator.SetTrigger("ActionDecisionLogic");
 		}
 	}
 

@@ -4,18 +4,24 @@ using UnityEngine;
 
 public class BossAIActionDecision : StateMachineBehaviour
 {
-	private Character _bossCharacter;
-	private Character _playerCharacter;
+	private BossAIHelper _helper;
 
 	public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		_bossCharacter = animator.GetComponentInParent<Character>();
+		_helper = new BossAIHelper(animator);
 
-		if(Random.value < 0.1F) //And the health is less than 50%
+		if(_helper.BossCharacter.IsDead)
+		{
+			return;
+		}
+
+		_helper.BossCharacter.transform.LookAt(_helper.PlayerCharacter.transform.position);
+
+		if(_helper.BossCharacter.CharacterStats.CurrentHealthPercent <= 0.5F && Random.value < 0.1F)
 		{
 			animator.SetTrigger("VulnerableLogic");
 		}
-		else if(Vector3.Distance(_bossCharacter.transform.position, _playerCharacter.transform.position) > 5.0F)
+		else if(Vector3.Distance(_helper.BossCharacter.transform.position, _helper.PlayerCharacter.transform.position) > 5.0F)
 		{
 			animator.SetTrigger("ChaseLogic");
 		}
@@ -36,6 +42,6 @@ public class BossAIActionDecision : StateMachineBehaviour
 
 	public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-
+		//animator.ResetTrigger("ActionDecisionLogic");
 	}
 }
