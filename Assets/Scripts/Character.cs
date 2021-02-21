@@ -70,7 +70,7 @@ public class Character : MonoBehaviour
 		}
 		else if (collision.gameObject.layer == 3)
 			return;
-		else if (collision.gameObject.layer == enemyLayer && collision.collider.CompareTag("Sword"));
+		else if (collision.gameObject.layer == enemyLayer && collision.collider.CompareTag("Sword"))
 			TakeDamage(collision.gameObject.GetComponent<Character>());
 	}
 
@@ -85,7 +85,7 @@ public class Character : MonoBehaviour
 		translation = Vector3.ClampMagnitude(translation, MaxMovementSpeed);
 		_xzVelocity = translation;
 
-		if(translation.magnitude >= 0.01F)
+		if(translation.magnitude >= 0.05F)
 		{
 			_rigidBody.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationZ;
 			_rigidBody.MovePosition(_rigidBody.position + 110.0F * translation * Time.deltaTime);

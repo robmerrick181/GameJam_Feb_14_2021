@@ -23,11 +23,11 @@ public class PlayerControls : MonoBehaviour
         UpdateTarget();
     }
 
-    private void OnGUI()
-    {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-    }
+    //private void OnGUI()
+    //{
+    //    Cursor.visible = false;
+    //    Cursor.lockState = CursorLockMode.Locked;
+    //}
 
     private void UpdateMovement()
 	{
