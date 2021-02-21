@@ -19,6 +19,7 @@ public class PhantomController : MonoBehaviour
     private void Start()
     {
         _character = GetComponent<Character>();
+        offset = UnityEngine.Random.Range(1f, 3f);
     }
 
     void Update()
@@ -40,18 +41,16 @@ public class PhantomController : MonoBehaviour
         {
             runFromBoss = false;
 
-            if (distanceToBoss > targetradius + 3f)
+            if (distanceToBoss > targetradius + offset)
             {
-                
                 runToBoss = true;
-
             }
         }
-        else if (distanceToBoss < targetradius )
+        else if (distanceToBoss < targetradius)
         {
             runToBoss = false;
 
-            if (distanceToBoss < targetradius - 3F)
+            if (distanceToBoss < targetradius )
             {
                 runFromBoss = true;
                 
@@ -71,7 +70,7 @@ public class PhantomController : MonoBehaviour
 
 
         _character.MoveXZ(vectorToBoss, true, _boss);
-        if(_player.IsSwingingSword)
+        if (_player.IsSwingingSword && distanceToBoss < 3F) 
         {
             _character.SwingSword();
         }
