@@ -42,7 +42,7 @@ public class Character : MonoBehaviour
 		for(int i = 0; i < 5; i++)
         {
 			_phantoms[i] = phantomsContainer.transform.GetChild(i).gameObject;
-			_phantoms[i].SetActive(false);
+			//_phantoms[i].SetActive(false);
 		}
 	}
 
@@ -143,7 +143,7 @@ public class Character : MonoBehaviour
 				}
 				hitCount++;
 			}
-			if (gameObject.name == "player") 
+			if (gameObject.name == "Player") 
 			{
 				hitCount = 0;
 				DespawnPhantoms();
