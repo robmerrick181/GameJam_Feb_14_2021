@@ -31,7 +31,8 @@ public class BossAIActionDecision : StateMachineBehaviour
 		}
 		else
 		{
-			animator.SetTrigger("IdleLogic");
+			animator.SetTrigger("AttackLogic");
+			//animator.SetTrigger("IdleLogic");
 		}
 	}
 
