@@ -15,7 +15,7 @@ public class WeaponController : MonoBehaviour
 
     private void Start()
     {
-        _damageText.text = Damage.ToString();
+        _damageText.text = Damage.ToString("F2");
     }
 
     private void OnTriggerEnter(Collider other)
