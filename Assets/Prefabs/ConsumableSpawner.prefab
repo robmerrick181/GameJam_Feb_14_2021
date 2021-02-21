@@ -45,10 +45,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GroundLayer:
     serializedVersion: 2
-    m_Bits: 0
-  TriggerSize: {x: 15, y: 15, z: 15}
-  Sword: {fileID: 0}
-  Bow: {fileID: 0}
-  HealthPotion: {fileID: 0}
-  StrengthPotion: {fileID: 0}
-  CanSpawn: 0
+    m_Bits: 8
+  TriggerSize: {x: 45, y: 15, z: 45}
+  _swordStartingStrength: 10
+  Sword: {fileID: 6528401089049318218, guid: 4a7adf287e6a191439607f7065a816ef, type: 3}
+  HealthPotion: {fileID: 6736324306417294893, guid: f8b7cc3301a2bc44bbe2296c32dcf93c, type: 3}
+  StrengthPotion: {fileID: 2260154383311204655, guid: 18f4ecc66378202459f7f2de59746f29, type: 3}
+  CanSpawn: 1
