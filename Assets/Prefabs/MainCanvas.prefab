@@ -2335,6 +2335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6b9a7c4606242245904be6c3f95549b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  music: {fileID: 0}
 --- !u!1 &3281222690090452376
 GameObject:
   m_ObjectHideFlags: 0
@@ -2465,7 +2466,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: TestPlayerControls
+          m_StringArgument: MainGame
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &3281222690391419314

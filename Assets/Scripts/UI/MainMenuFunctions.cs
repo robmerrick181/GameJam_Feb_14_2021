@@ -6,10 +6,11 @@ using UnityEngine.UI;
 
 public class MainMenuFunctions : MonoBehaviour
 {
-
+    [SerializeField] private AudioSource music;
     public void VolumeSlider(float _val)
     {
-        print(_val);
+        music.volume = _val;
+        GameManager.AudioLevel = _val;
     }
 
     public void FullScreen(int _val)
