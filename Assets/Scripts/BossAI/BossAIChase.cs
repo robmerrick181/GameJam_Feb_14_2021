@@ -13,7 +13,7 @@ public class BossAIChase : StateMachineBehaviour
 
 	public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		if(_helper.BossCharacter.IsDead)
+		if(_helper.BossCharacter.IsDead || _helper.PlayerCharacter.IsDead)
 		{
 			animator.SetTrigger("ActionDecisionLogic");
 			return;

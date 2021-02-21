@@ -16,7 +16,7 @@ public class BossAIAttackLogic : StateMachineBehaviour
 
 	public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		if(_helper.BossCharacter.IsDead || (_hasAttacked && _helper.ShouldChasePlayer()))
+		if(_helper.BossCharacter.IsDead || _helper.PlayerCharacter.IsDead || (_hasAttacked && _helper.ShouldChasePlayer()))
 		{
 			_hasAttacked = false;
 			animator.SetTrigger("ActionDecisionLogic");

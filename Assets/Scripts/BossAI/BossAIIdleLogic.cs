@@ -10,7 +10,7 @@ public class BossAIIdleLogic : StateMachineBehaviour
 	{
 		_helper = new BossAIHelper(animator);
 
-		if(_helper.BossCharacter.IsDead)
+		if(_helper.BossCharacter.IsDead || _helper.PlayerCharacter.IsDead)
 		{
 			_hasIdled = false;
 			animator.SetTrigger("ActionDecisionLogic");
