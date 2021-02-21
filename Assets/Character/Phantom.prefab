@@ -1156,6 +1156,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8862277764367861457}
   - component: {fileID: 3178712823110868139}
+  - component: {fileID: 6280689362503633400}
   m_Layer: 0
   m_Name: Phantom
   m_TagString: Untagged
@@ -1188,8 +1189,8 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8194002656131095659}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 96da7d1efaaf0af46a02bf8059b082ab, type: 3}
-  m_Controller: {fileID: 0}
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f58196b8570fd7b45bbd03a5a03b7dcf, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1198,6 +1199,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6280689362503633400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8194002656131095659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e3d82104d241154f930d4285bf13b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startingHealthPoints: 100
+  _startingStrength: 10
+  _startingWeaponDamage: 0
+  MaxMovementSpeed: 0
 --- !u!1 &8246824626360745776
 GameObject:
   m_ObjectHideFlags: 0
