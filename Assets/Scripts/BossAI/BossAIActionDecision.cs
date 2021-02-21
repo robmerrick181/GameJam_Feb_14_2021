@@ -16,24 +16,23 @@ public class BossAIActionDecision : StateMachineBehaviour
 		}
 
 		_helper.BossCharacter.transform.LookAt(_helper.PlayerCharacter.transform.position);
-		animator.SetTrigger("ChaseLogic");
 
-		//if(_helper.BossCharacter.CharacterStats.CurrentHealthPercent <= 0.5F && Random.value < 0.1F)
-		//{
-		//	animator.SetTrigger("VulnerableLogic");
-		//}
-		//else if(Vector3.Distance(_helper.BossCharacter.transform.position, _helper.PlayerCharacter.transform.position) > 5.0F)
-		//{
-		//	animator.SetTrigger("ChaseLogic");
-		//}
-		//else if(Random.value < 0.4F)
-		//{
-		//	animator.SetTrigger("AttackLogic");
-		//}
-		//else
-		//{
-		//	animator.SetTrigger("IdleLogic");
-		//}
+		if(_helper.BossCharacter.CharacterStats.CurrentHealthPercent <= 0.5F && Random.value < 0.1F)
+		{
+			animator.SetTrigger("VulnerableLogic");
+		}
+		else if(Vector3.Distance(_helper.BossCharacter.transform.position, _helper.PlayerCharacter.transform.position) > 5.0F)
+		{
+			animator.SetTrigger("ChaseLogic");
+		}
+		else if(Random.value < 0.4F)
+		{
+			animator.SetTrigger("AttackLogic");
+		}
+		else
+		{
+			animator.SetTrigger("IdleLogic");
+		}
 	}
 
 	public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -43,6 +42,6 @@ public class BossAIActionDecision : StateMachineBehaviour
 
 	public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		//animator.ResetTrigger("ActionDecisionLogic");
+		
 	}
 }
