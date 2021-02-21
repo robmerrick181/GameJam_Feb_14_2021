@@ -74,6 +74,9 @@ public class PhantomController : MonoBehaviour
         {
             _character.SwingSword();
         }
+        
+    
+        
     }
 }
 

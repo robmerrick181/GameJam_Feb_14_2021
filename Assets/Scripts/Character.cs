@@ -10,6 +10,7 @@ public class Character : MonoBehaviour
 	private CharacterStats _characterStats;
 	private Animator _animator;
 	private Character _characterAttackingMe;
+	private GameObject[] _phantoms = new GameObject[5];
     private bool _isTakingDamage = false;
 	private bool _isGloating = false;
 	private bool _isBoss = false;
@@ -24,6 +25,7 @@ public class Character : MonoBehaviour
 	public CharacterStats CharacterStats => _characterStats;
 	private float MaxMovementSpeed; 
 	private int enemyLayer;
+	private int hitCount = 0;
 
 	private void Start()
 	{
@@ -35,6 +37,13 @@ public class Character : MonoBehaviour
 		enemyLayer = _isBoss ? 7 : 6;
 		MaxMovementSpeed = _characterStats.MaxMovementSpeed;
 		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Character>();
+		GameObject phantomsContainer = GameObject.Find("Phantoms");
+
+		for(int i = 0; i < 5; i++)
+        {
+			_phantoms[i] = phantomsContainer.transform.GetChild(i).gameObject;
+			_phantoms[i].SetActive(false);
+		}
 	}
 
 	private void Update()
@@ -118,13 +127,28 @@ public class Character : MonoBehaviour
 
 	public void TakeDamage(Character characterAttackingMe)
 	{
-		if(!_isTakingDamage && characterAttackingMe.IsSwingingSword)
-        {
+		if (!_isTakingDamage && characterAttackingMe.IsSwingingSword)
+		{
 			_characterAttackingMe = characterAttackingMe;
 			_characterStats.ChangeHealth(-_characterAttackingMe._characterStats.CurrentStrength);
 			_isTakingDamage = true;
-			damageCooldown = 0.25f;
-        }
+			damageCooldown = 1.0f;
+
+
+			if (characterAttackingMe.name == "Player")
+			{
+				hitCount++;
+				if (hitCount < 5)
+				{
+					SpawnPhantom();
+				}
+			}
+			if (gameObject.name == "player") 
+			{
+				Player.hitCount = 0;
+				//DespawnPhantoms();
+			}
+		}
     }
 
 	public void Gloat()
@@ -159,14 +183,30 @@ public class Character : MonoBehaviour
 
 	private void CheckIfNotTakingDamage()
 	{
-		if(_isTakingDamage && damageCooldown <= 0)
+		SkinnedMeshRenderer modelRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+		if (_isTakingDamage && damageCooldown <= 0)
 		{
 			_isTakingDamage = false;
 		}
-		else
+		if (damageCooldown > 0)
         {
 			damageCooldown -= Time.deltaTime;
-        }
+			modelRenderer.material.EnableKeyword("_EMISSION");
+			modelRenderer.material.SetColor("_EmissionColor", Color.gray);
+			Debug.Log("Cooldown");
+			//Color color = modelRenderer.material.color;
+			//color.a = 0.0f;
+			//modelRenderer.material.SetColor("_Albedo", color);
+		}
+		if (damageCooldown < 0)
+        {
+			modelRenderer.material.EnableKeyword("_EMISSION");
+			modelRenderer.material.SetColor("_EmissionColor", Color.black);
+			//Color color = modelRenderer.material.color;
+			//color.a = 1.0f;
+			//modelRenderer.material.SetColor("_Albedo", color);
+
+		}
 	}
 
 	private void Die()
@@ -186,5 +226,16 @@ public class Character : MonoBehaviour
         {
 			_animator.SetTrigger("EndBlock");
 		}
+    }
+	private void SpawnPhantom()
+    {
+		_phantoms[hitCount].SetActive(true);
+	}
+	private void DespawnPhantoms()
+    {
+		for(int i = 0; i < 5; i++)
+        {
+			_phantoms[i].SetActive(false);
+        }
     }
 }
