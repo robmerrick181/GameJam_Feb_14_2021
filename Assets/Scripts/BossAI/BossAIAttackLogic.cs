@@ -9,6 +9,7 @@ public class BossAIAttackLogic : StateMachineBehaviour
 
 	public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
+		Debug.Log("Entered AttackLogic");
 		_attackDecisionDelay = Random.Range(0.1F, 1.0F);
 	}
 
