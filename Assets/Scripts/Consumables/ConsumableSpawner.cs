@@ -123,7 +123,7 @@ public class ConsumableSpawner : MonoBehaviour
         }
         else
         {
-            _currentSwordStrength += Random.Range(0f, 5f);
+            _currentSwordStrength += Random.Range(10f, 20f);
             return _currentSwordStrength;
         }
     }

@@ -25,7 +25,7 @@ public class Character : MonoBehaviour
 	public CharacterStats CharacterStats => _characterStats;
 	private float MaxMovementSpeed; 
 	private int enemyLayer;
-	private int hitCount = 0;
+	static int hitCount = 0;
 
 	private void Start()
 	{
@@ -42,7 +42,7 @@ public class Character : MonoBehaviour
 		for(int i = 0; i < 5; i++)
         {
 			_phantoms[i] = phantomsContainer.transform.GetChild(i).gameObject;
-			_phantoms[i].SetActive(false);
+			//_phantoms[i].SetActive(false);
 		}
 	}
 
@@ -130,24 +130,25 @@ public class Character : MonoBehaviour
 		if (!_isTakingDamage && characterAttackingMe.IsSwingingSword)
 		{
 			_characterAttackingMe = characterAttackingMe;
-			_characterStats.ChangeHealth(-_characterAttackingMe._characterStats.CurrentStrength);
+			_characterStats.ChangeHealth(-_characterAttackingMe._characterStats.CurrentStrength + -_characterAttackingMe._characterStats.CurrentWeaponDamage);
 			_isTakingDamage = true;
 			damageCooldown = 1.0f;
 
 
 			if (characterAttackingMe.name == "Player")
 			{
-				hitCount++;
-				if (hitCount < 5)
+				if (hitCount < 5) //This is the one stored on the boss
 				{
 					SpawnPhantom();
 				}
+				hitCount++;
 			}
-			if (gameObject.name == "player") 
+			if (gameObject.name == "Player") 
 			{
-				Player.hitCount = 0;
-				DespawnPhantoms();
-			}
+
+                hitCount = 0; //this is the one stored on the player
+                DespawnPhantoms();
+            }
 		}
     }
 
@@ -193,19 +194,11 @@ public class Character : MonoBehaviour
 			damageCooldown -= Time.deltaTime;
 			modelRenderer.material.EnableKeyword("_EMISSION");
 			modelRenderer.material.SetColor("_EmissionColor", Color.gray);
-			Debug.Log("Cooldown");
-			//Color color = modelRenderer.material.color;
-			//color.a = 0.0f;
-			//modelRenderer.material.SetColor("_Albedo", color);
 		}
 		if (damageCooldown < 0)
         {
 			modelRenderer.material.EnableKeyword("_EMISSION");
 			modelRenderer.material.SetColor("_EmissionColor", Color.black);
-			//Color color = modelRenderer.material.color;
-			//color.a = 1.0f;
-			//modelRenderer.material.SetColor("_Albedo", color);
-
 		}
 	}
 
@@ -229,10 +222,11 @@ public class Character : MonoBehaviour
     }
 	private void SpawnPhantom()
     {
-		_phantoms[hitCount].SetActive(true);
+		    _phantoms[hitCount].SetActive(true);
 	}
 	private void DespawnPhantoms()
     {
+        Debug.Log(hitCount);
 		for(int i = 0; i < 5; i++)
         {
 			_phantoms[i].SetActive(false);

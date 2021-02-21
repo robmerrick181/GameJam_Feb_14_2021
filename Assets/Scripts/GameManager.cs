@@ -26,9 +26,12 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Button _continue;
 
+    static public float AudioLevel = 1f;
+
     private void Start()
     {
         StartBattle();
+        SetAudio();
     }
 
     private void Update()
@@ -38,6 +41,15 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
             Pause();
+    }
+
+    private void SetAudio()
+    {
+        AudioSource[] sources = FindObjectsOfType<AudioSource>();
+        foreach (var thing in sources)
+        {
+            thing.volume = AudioLevel;
+        }
     }
 
     private void StartBattle()
@@ -67,9 +79,9 @@ public class GameManager : MonoBehaviour
 
     private void CheckStatus()
     {
-        if (Player.CurrentHealthPoints < 0)
+        if (Player.CurrentHealthPoints <= 0)
             EndGame(GameStatus.Lose);
-        if (Boss.CurrentHealthPoints < 0)
+        if (Boss.CurrentHealthPoints <= 0)
             EndGame(GameStatus.Win);
     }
 
