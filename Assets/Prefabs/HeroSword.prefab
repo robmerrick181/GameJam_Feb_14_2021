@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4375781099451826707}
   - component: {fileID: 8497221367489758239}
   - component: {fileID: 8541574435635666273}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HeroSwordModel
-  m_TagString: Untagged
+  m_TagString: Sword
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,9 +94,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2852344772661948322}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HeroSword
-  m_TagString: Untagged
+  m_TagString: Sword
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
