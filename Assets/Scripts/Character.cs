@@ -146,7 +146,7 @@ public class Character : MonoBehaviour
 			if (gameObject.name == "player") 
 			{
 				Player.hitCount = 0;
-				//DespawnPhantoms();
+				DespawnPhantoms();
 			}
 		}
     }
