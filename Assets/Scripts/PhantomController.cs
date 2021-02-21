@@ -19,7 +19,7 @@ public class PhantomController : MonoBehaviour
     private void Start()
     {
         _character = GetComponent<Character>();
-        offset = UnityEngine.Random.Range(1f, 3f);
+        offset = UnityEngine.Random.Range(1f, 4f);
     }
 
     void Update()
