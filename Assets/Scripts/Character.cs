@@ -130,7 +130,7 @@ public class Character : MonoBehaviour
 		if (!_isTakingDamage && characterAttackingMe.IsSwingingSword)
 		{
 			_characterAttackingMe = characterAttackingMe;
-			_characterStats.ChangeHealth(-_characterAttackingMe._characterStats.CurrentStrength);
+			_characterStats.ChangeHealth(-_characterAttackingMe._characterStats.CurrentStrength + -_characterAttackingMe._characterStats.CurrentWeaponDamage);
 			_isTakingDamage = true;
 			damageCooldown = 1.0f;
 
