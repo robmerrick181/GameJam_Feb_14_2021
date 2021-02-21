@@ -274,6 +274,24 @@ MonoBehaviour:
   m_Text: 'num
 
 '
+--- !u!114 &1425698159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6521014258611818748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b55bb1a5cddbe1245b73b881abfe0894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotationAxis: 1
+  _bobAnimate: 1
+  _rotate: 1
+  _rotationSpeed: 50
+  _bobSpeed: 0.45
+  _bobHeight: 0.75
 --- !u!1 &6528401089049318218
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,6 +500,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6289566ee1802f4ba7b3e32e43c6e12, type: 3}
+--- !u!1 &6521014258611818748 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3233092886702945560, guid: d6289566ee1802f4ba7b3e32e43c6e12, type: 3}
+  m_PrefabInstance: {fileID: 8548125880693941732}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5851472547276704326 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2852344772661948322, guid: d6289566ee1802f4ba7b3e32e43c6e12, type: 3}
