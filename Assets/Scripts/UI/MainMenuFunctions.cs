@@ -10,6 +10,7 @@ public class MainMenuFunctions : MonoBehaviour
     public void VolumeSlider(float _val)
     {
         music.volume = _val;
+        GameManager.AudioLevel = _val;
     }
 
     public void FullScreen(int _val)
