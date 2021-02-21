@@ -20,6 +20,8 @@ public class Character : MonoBehaviour
 	public bool IsSwingingSword { get; private set; } = false;
     public bool IsJumping { get; private set; } = false;
 	public bool IsDead { get; private set; } = false;
+	public Character Player { get; private set; }
+	public CharacterStats CharacterStats => _characterStats;
 	private float MaxMovementSpeed; 
 	private int enemyLayer;
 
@@ -32,6 +34,7 @@ public class Character : MonoBehaviour
 		_isBoss = transform.name == "Boss";
 		enemyLayer = _isBoss ? 7 : 6;
 		MaxMovementSpeed = _characterStats.MaxMovementSpeed;
+		Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Character>();
 	}
 
 	private void Update()
@@ -77,7 +80,7 @@ public class Character : MonoBehaviour
 		{
 			_rigidBody.MovePosition(_rigidBody.position + 110.0F * translation * Time.deltaTime);
 
-			if (!targetSystemEngaged)
+			if(!targetSystemEngaged)
 			{
 				transform.LookAt(transform.position + translation);
 			}

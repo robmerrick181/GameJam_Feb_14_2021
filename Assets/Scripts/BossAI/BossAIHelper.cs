@@ -7,8 +7,9 @@ public class BossAIHelper
 	public Character BossCharacter { get; }
 	public Character PlayerCharacter { get; }
 
-	public BossAIHelper()
+	public BossAIHelper(Animator bossAnimator)
 	{
-
+		BossCharacter = bossAnimator.GetComponentInParent<Character>();
+		PlayerCharacter = BossCharacter.Player;
 	}
 }

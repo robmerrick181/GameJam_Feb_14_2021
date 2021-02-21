@@ -15,6 +15,6 @@ public class HealthFill : MonoBehaviour
 
 	private void Update()
 	{
-		_healthFillRectTransform.anchorMax = new Vector2(_characterStats.CurrentHealthPoints / _characterStats.StartingHealthPoints, _healthFillRectTransform.anchorMax.y);
+		_healthFillRectTransform.anchorMax = new Vector2(_characterStats.CurrentHealthPercent, _healthFillRectTransform.anchorMax.y);
 	}
 }

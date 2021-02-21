@@ -15,6 +15,7 @@ public class CharacterStats: MonoBehaviour
     public float StartingHealthPoints => _startingHealthPoints;
     public float StartingStrength => _startingStrength;
     public float CurrentHealthPoints => _currentHealthPoints;
+    public float CurrentHealthPercent => _currentHealthPoints / _startingHealthPoints;
     public float CurrentStrength => _currentStrength;
     public float StartingWeaponDamage => _startingWeaponDamage;
     public float CurrentWeaponDamage => _currentWeaponDamage;
